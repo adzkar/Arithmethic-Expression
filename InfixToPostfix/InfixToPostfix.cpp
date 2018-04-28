@@ -37,12 +37,12 @@ void converter(string var) {
     vector<char> output;
     stack<char> stack;
     for(int i = 0;i < var.length();i++) {
-        if(var[i] != '+' && var[i] != '-' && var[i] != '*' && var[i] != '/' && var[i] != '^') output.push_back(var[i]);
+        if(var[i] != '+' && var[i] != '-' && var[i] != '*' && var[i] != '/' && var[i] != '^' && var[i] != '(' && var[i] != ')') output.push_back(var[i]);
         else {
             if(stack.empty()) stack.push(var[i]);
             else {
                 while(!stack.empty() && operatorLevel(var[i]) <= operatorLevel(stack.top())) {
-                    output.push_back(stack.top());
+                    if(var[i] != '(' && var[i] != ')') output.push_back(stack.top());
                     stack.pop();
                 }
                 stack.push(var[i]);
@@ -53,7 +53,7 @@ void converter(string var) {
         output.push_back(stack.top());
         stack.pop();
     }
-    for(int i = 0;i < var.length();i++) cout << output[i] << " ";
+    for(int i = 0;i < var.length();i++) cout << output[i];
     cout << endl;
 }
 
